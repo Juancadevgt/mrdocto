@@ -1,0 +1,16 @@
+# Render Blueprint para el backend de mrdocto.
+# En Render: New > Blueprint, conecta este repositorio y detectara este archivo.
+# (Tambien puedes crearlo a mano: New > Web Service, Root Directory = backend, Docker.)
+services:
+  - type: web
+    name: mrdocto-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # URL del frontend en Vercel, para CORS. Se define en el dashboard de Render.
+      - key: ALLOWED_ORIGINS
+        sync: false

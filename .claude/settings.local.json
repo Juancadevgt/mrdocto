@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(foreach \\($c in @\\('node','npm','python','py','git','docker','soffice'\\)\\) { $cmd = Get-Command $c -ErrorAction SilentlyContinue; if \\($cmd\\) { try { $ver = \\(& $c --version 2>$null | Select-Object -First 1\\) } catch { $ver = '\\(version desconocida\\)' }; \"$c => $ver\" } else { \"$c => NO ENCONTRADO\" } })",
+      "PowerShell(py -m venv C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\.venv)",
+      "PowerShell(& C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\.venv\\\\Scripts\\\\python.exe -m pip install --upgrade pip --quiet)",
+      "PowerShell(& C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\.venv\\\\Scripts\\\\python.exe -m pip install -r C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\requirements.txt)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell($procs = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique; foreach \\($p in $procs\\) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue }; \"Detenidos en 3000: $\\($procs -join ', '\\)\")"
+    ]
+  }
+}
