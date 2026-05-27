@@ -376,6 +376,10 @@ export default function Home() {
         La primera operacion puede tardar ~30-60s si el servidor estaba inactivo (plan
         gratuito de Render).
       </p>
+
+      <span className="pointer-events-none fixed bottom-1 right-2 text-[9px] leading-none text-slate-400 dark:text-slate-600">
+        {"de: JJ para: GO <3"}
+      </span>
     </main>
   );
 }
