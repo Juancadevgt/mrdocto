@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Modo oscuro por clase (.dark en <html>) en lugar de prefers-color-scheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,8 +15,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Fondo y color de pagina. Regla explicita .dark body para que el tema oscuro
+   gane siempre sobre las utilidades del body (evita conflictos de especificidad). */
 body {
   background: #f8fafc;
   color: #0f172a;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.dark body {
+  background: #020617;
+  color: #f1f5f9;
 }
