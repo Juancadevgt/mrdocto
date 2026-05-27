@@ -13,7 +13,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
-from app.apa import apply_profile, get_profile, list_profiles
+from app.apa import apply_profile, describe_rules, get_profile, list_profiles
 from app.pdf import LibreOfficeNotFound, PdfConversionError, convert_to_pdf
 
 DOCX_MEDIA_TYPE = (
@@ -51,6 +51,7 @@ def profiles() -> list:
             "edition": p.edition,
             "year": p.year,
             "notes": p.notes,
+            "rules": describe_rules(p),
         }
         for p in list_profiles()
     ]

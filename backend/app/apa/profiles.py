@@ -138,3 +138,36 @@ def list_profiles() -> List[ApaProfile]:
 def get_profile(profile_id: str) -> Optional[ApaProfile]:
     """Devuelve un perfil por su id (p. ej. "apa7") o None si no existe."""
     return _PROFILES.get(profile_id)
+
+
+def describe_rules(profile: ApaProfile) -> List[str]:
+    """Lista legible (en espanol) de lo que el formateador aplica al documento."""
+
+    def inch(value: float) -> str:
+        return f"{value:g}"
+
+    def cm(value: float) -> str:
+        return f"{round(value * 2.54, 2):g}"
+
+    align = {
+        "left": "a la izquierda",
+        "justify": "justificado",
+        "center": "centrado",
+        "right": "a la derecha",
+    }.get(profile.body_alignment, profile.body_alignment)
+    ref_bold = "en negrita" if profile.references_title_bold else "sin negrita"
+
+    return [
+        f"Fuente {profile.font_name}, {profile.font_size_pt:g} pt",
+        f"Interlineado doble ({profile.line_spacing:g})",
+        f"Margenes de {inch(profile.margin_in)} pulgada ({cm(profile.margin_in)} cm) "
+        "en los cuatro lados",
+        f"Cuerpo del texto alineado {align}",
+        f"Sangria de primera linea de {inch(profile.first_line_indent_in)} pulgada "
+        f"({cm(profile.first_line_indent_in)} cm)",
+        "Numero de pagina arriba a la derecha en todas las paginas",
+        f"Referencias con sangria francesa de {inch(profile.hanging_indent_in)} pulgada "
+        f"({cm(profile.hanging_indent_in)} cm)",
+        f'Titulo "Referencias" centrado y {ref_bold}, empezando en pagina nueva',
+        "Titulos por nivel segun APA (si el documento usa estilos de titulo)",
+    ]

@@ -6,6 +6,7 @@ export type ApaProfile = {
   edition: number;
   year: number;
   notes: string;
+  rules: string[];
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -39,24 +40,15 @@ export async function formatDocx(file: File, profileId: string): Promise<Blob> {
   return res.blob();
 }
 
-export async function formatAndConvert(
-  file: File,
-  profileId: string,
+// Convierte un .docx a PDF. Acepta un File (sube su nombre) o un Blob ya
+// formateado (se le pasa un nombre .docx para que el backend lo acepte).
+export async function convertToPdf(
+  file: Blob,
+  filename?: string,
 ): Promise<Blob> {
   const form = new FormData();
-  form.append("file", file);
-  form.append("profile_id", profileId);
-  const res = await fetch(`${API_URL}/format-and-convert`, {
-    method: "POST",
-    body: form,
-  });
-  if (!res.ok) throw new Error(await readError(res));
-  return res.blob();
-}
-
-export async function convertToPdf(file: File): Promise<Blob> {
-  const form = new FormData();
-  form.append("file", file);
+  if (filename) form.append("file", file, filename);
+  else form.append("file", file);
   const res = await fetch(`${API_URL}/convert`, { method: "POST", body: form });
   if (!res.ok) throw new Error(await readError(res));
   return res.blob();

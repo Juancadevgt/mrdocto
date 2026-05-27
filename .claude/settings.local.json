@@ -6,7 +6,8 @@
       "PowerShell(& C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\.venv\\\\Scripts\\\\python.exe -m pip install --upgrade pip --quiet)",
       "PowerShell(& C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\.venv\\\\Scripts\\\\python.exe -m pip install -r C:\\\\JUANCADEV\\\\mrdocto\\\\backend\\\\requirements.txt)",
       "mcp__Claude_Preview__preview_start",
-      "PowerShell($procs = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique; foreach \\($p in $procs\\) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue }; \"Detenidos en 3000: $\\($procs -join ', '\\)\")"
+      "PowerShell($procs = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique; foreach \\($p in $procs\\) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue }; \"Detenidos en 3000: $\\($procs -join ', '\\)\")",
+      "PowerShell(try { $p = Invoke-RestMethod -Uri \"http://localhost:8000/profiles\" -TimeoutSec 20; \"APA7 tiene rules: \" + [bool]\\($p | Where-Object { $_.id -eq 'apa7' }\\).rules; \"Cantidad de reglas APA7: \" + \\(\\($p | Where-Object { $_.id -eq 'apa7' }\\).rules\\).Count } catch { \"backend local no disponible: $_\" })"
     ]
   }
 }
